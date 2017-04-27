@@ -13,7 +13,7 @@ public class ModuloConexao {
     // modulo estabelecer conexao banco
     public static Connection conector(){
     java.sql.Connection  conexao = null;
-    String driver="com.br.jdbc.driver";
+    String driver="com.mysql.jdbc.Driver";
     //  a linha abaixo chama o driver
    
     String url = "jdbc:mysql://localhost:3306/dbinfox";
