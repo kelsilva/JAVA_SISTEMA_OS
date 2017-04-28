@@ -25,6 +25,9 @@ public class ModuloConexao {
             conexao = DriverManager.getConnection(url,user,password);
             return conexao;
         } catch (Exception e) {
+            
+            // a linha abaixo serve para exclarecer a conexao
+            //System.out.println(e);
             return null;
         }
         }
