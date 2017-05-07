@@ -36,7 +36,7 @@ public class TelaLogin extends javax.swing.JFrame {
            TelaPrincipal principal = new TelaPrincipal();
            principal.setVisible(true);
            }else{
-               JOptionPane.showMessageDialog(null, "Usuario e/ou senha invalidos");
+               JOptionPane.showMessageDialog(null, "Usuario e/ou senha invalidos... repositorio remoto");
            
            }
         } catch (Exception e) {
