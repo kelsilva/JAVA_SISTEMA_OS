@@ -84,11 +84,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menCadUsu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
         menCadUsu.setText("Usuarios");
+        menCadUsu.setEnabled(false);
         menCad.add(menCadUsu);
 
         Menu.add(menCad);
 
         menRel.setText("Relatorio");
+        menRel.setEnabled(false);
 
         menRelServ.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
         menRelServ.setText("Serviços");
@@ -100,6 +102,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menAjudaSob.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
         menAjudaSob.setText("Sobre");
+        menAjudaSob.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menAjudaSobActionPerformed(evt);
+            }
+        });
         menAjuda.add(menAjudaSob);
 
         Menu.add(menAjuda);
@@ -113,6 +120,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         MenOpcSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
         MenOpcSair.setText("Sair");
+        MenOpcSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenOpcSairActionPerformed(evt);
+            }
+        });
         menOpc.add(MenOpcSair);
 
         Menu.add(menOpc);
@@ -154,10 +166,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void menOpcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menOpcActionPerformed
-        // exibe uma caixa de dialogo
-        int sair = JOptionPane.showConfirmDialog(null, "tem certeza que deseja sair","Atençao",JOptionPane.YES_OPTION);
+      
     }//GEN-LAST:event_menOpcActionPerformed
 
+    private void menAjudaSobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menAjudaSobActionPerformed
+        // construindo a tela Sobre
+        TelaSobre sobre = new TelaSobre();
+        sobre.setVisible(true);
+    }//GEN-LAST:event_menAjudaSobActionPerformed
+
+    private void MenOpcSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenOpcSairActionPerformed
+         int sair = JOptionPane.showConfirmDialog(null, "tem certeza que deseja sair","Atençao",JOptionPane.YES_OPTION);
+         if (sair == JOptionPane.YES_OPTION){
+         System.exit(0);
+    }//GEN-LAST:event_MenOpcSairActionPerformed
+    }
     /**
      * @param args the command line arguments
      */
@@ -204,9 +227,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menCad;
     private javax.swing.JMenuItem menCadCliente;
     private javax.swing.JMenuItem menCadOS;
-    private javax.swing.JMenuItem menCadUsu;
+    public static javax.swing.JMenuItem menCadUsu;
     private javax.swing.JMenu menOpc;
-    private javax.swing.JMenu menRel;
+    public static javax.swing.JMenu menRel;
     private javax.swing.JMenuItem menRelServ;
     // End of variables declaration//GEN-END:variables
 }
