@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package br.com.infox.telas;
+
 import java.sql.*;
 import br.com.infox.dal.ModuloConexao;
 import javax.swing.JOptionPane;
@@ -13,57 +14,73 @@ import javax.swing.JOptionPane;
  * @author Kel
  */
 public class TelaLogin extends javax.swing.JFrame {
-    Connection  conexao  = null;
+
+    Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
 
-    public void logar(){
-    
+    public void logar() {
+
         String sql = "select * from tbusuarios where login=? and senha=?";
-        
+
         try {
             // a linha abaixo prepara o banco a funçao do que foi digitado 
             //na caixa de texto
             //o ? e subistituido pelo conteudo das variaveis 
-           pst = conexao.prepareStatement(sql);
-           pst.setString(1, txtUsuario.getText());
-           pst.setString(2, txtSenha.getText());
-           
-           // a linha abaixo executa a query
-           rs = pst.executeQuery();
-           //a linha abaixo se existir usuario
-           if (rs.next()){
-           TelaPrincipal principal = new TelaPrincipal();
-           principal.setVisible(true);
-           this.dispose();
-           conexao.close();
-           }else{
-               JOptionPane.showMessageDialog(null, "Usuario e/ou senha invalidos.. ");
-           
-           }
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtUsuario.getText());
+            pst.setString(2, txtSenha.getText());
+
+            // a linha abaixo executa a query
+            rs = pst.executeQuery();
+            //a linha abaixo se existir usuario
+            if (rs.next()) {
+                // a linha abaixo obtem o conteudo do campo perfil da tabela
+                String perfil = rs.getString(6);
+                // System.out.print(perfil);
+                // a linha abaixo faz o tratamento do perfil do usuario
+                if (perfil.equals("admin")) {
+
+                    // a linha abaixo exibe o conteudo do campo da tabela  
+                    TelaPrincipal principal = new TelaPrincipal();
+                    principal.setVisible(true);
+                    TelaPrincipal.menCadUsu.setVisible(true);
+                    TelaPrincipal.menRel.setVisible(true);
+                    this.dispose();
+                } else {
+                    TelaPrincipal principal = new TelaPrincipal();
+                    principal.setVisible(true);
+                    this.dispose();
+                }
+                conexao.close();
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario e/ou senha invalidos.. ");
+
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-    
+
     }
+
     /**
      * Creates new form TelaLogin
      */
     public TelaLogin() {
         initComponents();
         conexao = ModuloConexao.conector();
-        
+
         // a linha abaixo serve de apoio ao status de conexao
         //System.out.println(conexao);
-        if (conexao != null){
-        lblStatus.setText("Conectado");
-         lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/accept-database.png")));
-         lblStatus.setText("conectado");
-        }else{
-        lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/remove-from-database.png")));
-         lblStatus.setText("Nao conectado");
+        if (conexao != null) {
+            lblStatus.setText("Conectado");
+            lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/accept-database.png")));
+            lblStatus.setText("conectado");
+        } else {
+            lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/remove-from-database.png")));
+            lblStatus.setText("Nao conectado");
         }
-        
+
     }
 
     /**
@@ -148,7 +165,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // o comando abaixo chama o metodo logar
         logar();
-        
+
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
