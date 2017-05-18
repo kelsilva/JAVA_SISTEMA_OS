@@ -140,8 +140,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblData)
-                    .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 80, Short.MAX_VALUE))
+                    .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,7 +221,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar Menu;
     private javax.swing.JDesktopPane desktop;
     private javax.swing.JLabel lblData;
-    private javax.swing.JLabel lblUsuario;
+    public static javax.swing.JLabel lblUsuario;
     private javax.swing.JMenu menAjuda;
     private javax.swing.JMenuItem menAjudaSob;
     private javax.swing.JMenu menCad;
