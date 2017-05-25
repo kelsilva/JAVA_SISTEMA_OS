@@ -6,16 +6,34 @@
 package br.com.infox.telas;
 
 /**
- *
+ * aula 13 
  * @author KELSILVA-WINDOWS7
  */
+import java.sql.*;
+import br.com.infox.dal.ModuloConexao;
+
+
 public class TelaUsuario extends javax.swing.JInternalFrame {
+  
+    // usando a variavel de conexao com dal
+    Connection conexao = null;
+    // criando variaveis especiais para conexao com banco
+    // prepared statment e resultset sao frameworks java para banco de dados
+    // servem para preparar e executar instruçoes  sql
+    PreparedStatement pst = null;
+    ResultSet rs = null;
 
     /**
      * Creates new form TelaUsuario
      */
     public TelaUsuario() {
         initComponents();
+        conexao = ModuloConexao.conector();
+        
+    }
+    private void consultar (){
+    String sql ="select * from tbusuarios where iduser=?";
+    
     }
 
     /**
