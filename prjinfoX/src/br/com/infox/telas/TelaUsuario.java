@@ -77,11 +77,11 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             pst.setString(6,cboUsuPerfil.getSelectedItem().toString());
             
             // validaçao dos campos obrigatorios
-            if ((txtUsuId.getText().isEmpty())  ||  (txtUsuNome.getText().isEmpty())  ||  (txtUsuLogin.getText().isEmpty())||(txtUsuSenha.getText().isEmpty())){
+            if (txtUsuId.getText().isEmpty()|| (txtUsuNome.getText().isEmpty())){
               JOptionPane.showMessageDialog(null, "Preencha todos os campos");
             }else{
             
-            
+          
             
             // A linha baixo atualiza a tabela usuario com os dados do formulario
             // a estrutura abaixo e usada para confirmar a inserçao doa dados na tabela 
@@ -95,9 +95,9 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                   txtUsuLogin.setText(null);
                   txtUsuSenha.setText(null);
                   cboUsuPerfil.setSelectedItem(null);
-                
+                  }
               }
-            }  
+              
         } catch (Exception e) {
           JOptionPane.showMessageDialog(null, e);  
         }
