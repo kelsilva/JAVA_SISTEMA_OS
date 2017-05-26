@@ -75,10 +75,41 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             pst.setString(4,txtUsuLogin.getText());
             pst.setString(5,txtUsuSenha.getText());
             pst.setString(6,cboUsuPerfil.getSelectedItem().toString());
+            
+            // validaçao dos campos obrigatorios
+            if ((txtUsuId.getText().isEmpty())  ||  (txtUsuNome.getText().isEmpty())  ||  (txtUsuLogin.getText().isEmpty())||(txtUsuSenha.getText().isEmpty())){
+              JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+            }else{
+            
+            
+            
+            // A linha baixo atualiza a tabela usuario com os dados do formulario
+            // a estrutura abaixo e usada para confirmar a inserçao doa dados na tabela 
+              int adicionado = pst.executeUpdate();
+              //System.out.println(adicionado);
+              if (adicionado>0){
+                JOptionPane.showMessageDialog(null, "Usuario Adicionado com Sucesso");
+                  txtUsuId.setText(null);
+                  txtUsuNome.setText(null);
+                  txtUsuFone.setText(null);
+                  txtUsuLogin.setText(null);
+                  txtUsuSenha.setText(null);
+                  cboUsuPerfil.setSelectedItem(null);
+                
+              }
+            }  
+        } catch (Exception e) {
+          JOptionPane.showMessageDialog(null, e);  
+        }
+    
+
+    }
            
             
             // validação dos campos obrigatorios
-                  if ((txtUsuId.getText().isEmpty()) ||(txtUsuNome.getText().isEmpty())||(txtUsuLogin.getText().isEmpty())||(txtUsuSenha.getText().isEmpty())){
+          /*    
+            // COMEÇO COMENTARIO KEL
+            if ((txtUsuId.getText().isEmpty()) ||(txtUsuNome.getText().isEmpty())||(txtUsuLogin.getText().isEmpty())||(txtUsuSenha.getText().isEmpty())){
                    JOptionPane.showMessageDialog(null, "Voce precisa Preencher os campos Obrigatorios");
                   }else {
                    // a linha abaixo atualiza a tabela usuario com os dados do formulario
@@ -95,15 +126,10 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                   txtUsuLogin.setText(null);
                   txtUsuSenha.setText(null);
                   cboUsuPerfil.setSelectedItem(null);
-              
-                 }    
-            }
-        } catch (Exception e) {
-          JOptionPane.showMessageDialog(null, e);  
-        }
-    
-    
-    }
+                 } 
+                 
+            }*/  //FIM COMENTARIO    KEL
+        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -156,6 +182,11 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         btnUsuCreate.setToolTipText("Adicionar");
         btnUsuCreate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUsuCreate.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnUsuCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuCreateActionPerformed(evt);
+            }
+        });
 
         btnUsuRead.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/find.png"))); // NOI18N
         btnUsuRead.setToolTipText("Consultar");
@@ -270,6 +301,11 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         // chama o metodo consultar
         consultar();
     }//GEN-LAST:event_btnUsuReadActionPerformed
+
+    private void btnUsuCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuCreateActionPerformed
+        // TODO add your handling code here:
+        adicionar();
+    }//GEN-LAST:event_btnUsuCreateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
