@@ -6,16 +6,16 @@
 package br.com.infox.telas;
 
 /**
- * aula 13 
+ * aula 13
+ *
  * @author KELSILVA-WINDOWS7
  */
 import java.sql.*;
 import br.com.infox.dal.ModuloConexao;
 import javax.swing.JOptionPane;
 
-
 public class TelaUsuario extends javax.swing.JInternalFrame {
-  
+
     // usando a variavel de conexao com dal
     Connection conexao = null;
     // criando variaveis especiais para conexao com banco
@@ -30,106 +30,146 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
     public TelaUsuario() {
         initComponents();
         conexao = ModuloConexao.conector();
-        
+
     }
+
     // metodo para consultar usuarios
-    private void consultar (){
-    String sql ="select * from tbusuarios where iduser=?";
+
+    private void consultar() {
+        String sql = "select * from tbusuarios where iduser=?";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, txtUsuId.getText());// pega o parametro passado no ? ...    iduser=?
-            rs= pst.executeQuery();
-            
-            
-            
-            if ( rs.next()) {
-            txtUsuNome.setText(rs.getString(2));
-            txtUsuFone.setText(rs.getString(3));
-            txtUsuLogin.setText(rs.getString(4));
-            txtUsuSenha.setText(rs.getString(5));
-            
-            // a linha abaixo se refere a comboBox
-            cboUsuPerfil.setSelectedItem(rs.getString(6));
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                txtUsuNome.setText(rs.getString(2));
+                txtUsuFone.setText(rs.getString(3));
+                txtUsuLogin.setText(rs.getString(4));
+                txtUsuSenha.setText(rs.getString(5));
+
+                // a linha abaixo se refere a comboBox
+                cboUsuPerfil.setSelectedItem(rs.getString(6));
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario nao cadastrado");
-                  txtUsuNome.setText(null);
-                  txtUsuFone.setText(null);
-                  txtUsuLogin.setText(null);
-                  txtUsuSenha.setText(null);
-                  
+                txtUsuNome.setText(null);
+                txtUsuFone.setText(null);
+                txtUsuLogin.setText(null);
+                txtUsuSenha.setText(null);
+
             }
-           
+
         } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, e);
         }
-    
-    }
-    // metodo para adiconar usuarios
-    private void adicionar(){
-        String sql= "insert into tbusuarios (iduser,usuario,fone,login,senha,perfil) values (?,?,?,?,?,?)";
-        try {
-            pst= conexao.prepareStatement(sql);
-            pst.setString(1,txtUsuId.getText());
-            pst.setString(2,txtUsuNome.getText());
-            pst.setString(3,txtUsuFone.getText());
-            pst.setString(4,txtUsuLogin.getText());
-            pst.setString(5,txtUsuSenha.getText());
-            pst.setString(6,cboUsuPerfil.getSelectedItem().toString());
-            
-            // validaçao dos campos obrigatorios
-            if ((txtUsuId.getText().isEmpty())|| (txtUsuNome.getText().isEmpty()) || (txtUsuLogin.getText().isEmpty())|| (txtUsuSenha.getText().isEmpty())){
-              JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatorios");
-            }else{
-            
-          
-            
-            // A linha baixo atualiza a tabela usuario com os dados do formulario
-            // a estrutura abaixo e usada para confirmar a inserçao doa dados na tabela 
-              int adicionado = pst.executeUpdate();
-              //System.out.println(adicionado);
-              if (adicionado>0){
-                JOptionPane.showMessageDialog(null, "Usuario Adicionado com Sucesso");
-                  txtUsuId.setText(null);
-                  txtUsuNome.setText(null);
-                  txtUsuFone.setText(null);
-                  txtUsuLogin.setText(null);
-                  txtUsuSenha.setText(null);
-                  
-                  }
-              }
-              
-        } catch (Exception e) {
-          JOptionPane.showMessageDialog(null, e);  
-        }
-    
 
     }
-           
-            
-            // validação dos campos obrigatorios
-          /*    
-            // COMEÇO COMENTARIO KEL
-            if ((txtUsuId.getText().isEmpty()) ||(txtUsuNome.getText().isEmpty())||(txtUsuLogin.getText().isEmpty())||(txtUsuSenha.getText().isEmpty())){
-                   JOptionPane.showMessageDialog(null, "Voce precisa Preencher os campos Obrigatorios");
-                  }else {
-                   // a linha abaixo atualiza a tabela usuario com os dados do formulario
-        
-                  // a estrutura abaixo e usada para confirmar a inserção dos dados na tabela
-                  int adicionado = pst.executeUpdate();
-                 System.out.println(adicionado);
-                 if (adicionado > 0 ){
-                 JOptionPane.showMessageDialog(null, "Usuario Adicionado com Sucesso");
-                 // limpa campos
-                  txtUsuId.setText(null);
-                  txtUsuNome.setText(null);
-                  txtUsuFone.setText(null);
-                  txtUsuLogin.setText(null);
-                  txtUsuSenha.setText(null);
-                  cboUsuPerfil.setSelectedItem(null);
-                 } 
-                 
-            }*/  //FIM COMENTARIO    KEL
-        
+
+    // metodo para adiconar usuarios
+
+    private void adicionar() {
+        String sql = "insert into tbusuarios (iduser,usuario,fone,login,senha,perfil) values (?,?,?,?,?,?)";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtUsuId.getText());
+            pst.setString(2, txtUsuNome.getText());
+            pst.setString(3, txtUsuFone.getText());
+            pst.setString(4, txtUsuLogin.getText());
+            pst.setString(5, txtUsuSenha.getText());
+            pst.setString(6, cboUsuPerfil.getSelectedItem().toString());
+
+            // validaçao dos campos obrigatorios
+            if ((txtUsuId.getText().isEmpty()) || (txtUsuNome.getText().isEmpty()) || (txtUsuLogin.getText().isEmpty()) || (txtUsuSenha.getText().isEmpty())) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatorios");
+            } else {
+
+            // A linha baixo atualiza a tabela usuario com os dados do formulario
+                // a estrutura abaixo e usada para confirmar a inserçao doa dados na tabela 
+                int adicionado = pst.executeUpdate();
+                //System.out.println(adicionado);
+                if (adicionado > 0) {
+                    JOptionPane.showMessageDialog(null, "Usuario Adicionado com Sucesso");
+                    txtUsuId.setText(null);
+                    txtUsuNome.setText(null);
+                    txtUsuFone.setText(null);
+                    txtUsuLogin.setText(null);
+                    txtUsuSenha.setText(null);
+
+                }
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+    }
+    // criando metodos para alterar dados do usuario
+
+    private void alterar() {
+
+        String sql = "update tbusuarios set usuario=?,fone=?,login=?,senha=?,perfil=? where iduser=?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtUsuNome.getText());
+            pst.setString(2, txtUsuFone.getText());
+            pst.setString(3, txtUsuLogin.getText());
+            pst.setString(4, txtUsuSenha.getText());
+            pst.setString(5, cboUsuPerfil.getSelectedItem().toString());
+            pst.setString(6, txtUsuId.getText());
+
+            if ((txtUsuId.getText().isEmpty()) || (txtUsuNome.getText().isEmpty()) || (txtUsuLogin.getText().isEmpty()) || (txtUsuSenha.getText().isEmpty())) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatorios");
+            } else {
+
+            // A linha baixo atualiza a tabela usuario com os dados do formulario
+                // a estrutura abaixo e usada para confirmar a Alteraçao dos dados na tabela 
+                int adicionado = pst.executeUpdate();
+                //System.out.println(adicionado);
+                if (adicionado > 0) {
+                    JOptionPane.showMessageDialog(null, "Dados do Usuario Alterado com Sucesso");
+                    txtUsuId.setText(null);
+                    txtUsuNome.setText(null);
+                    txtUsuFone.setText(null);
+                    txtUsuLogin.setText(null);
+                    txtUsuSenha.setText(null);
+
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+    }
+      // metodo responsavel pela remoção do usuario
+
+    private void remover() {
+
+        // a estrutura abaixo confirma a remoção do usuario
+        int confirma = JOptionPane.showConfirmDialog(null, "Voce tem Certeza que deseja Excluir este usuario? ", "Atenção", JOptionPane.YES_NO_OPTION);
+
+        if (confirma == JOptionPane.YES_NO_OPTION) {
+            String sql = "delete * from tbusuarios where iduser=?";
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, txtUsuId.getText());
+                int apagado = pst.executeUpdate();
+                if (apagado > 0) {
+                    JOptionPane.showMessageDialog(null, "Usuario removido com Sucesso");
+
+                    txtUsuId.setText(null);
+                    txtUsuNome.setText(null);
+                    txtUsuFone.setText(null);
+                    txtUsuLogin.setText(null);
+                    txtUsuSenha.setText(null);
+
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+
+        }
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -202,11 +242,21 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         btnUsuUpdate.setToolTipText("Atualizar");
         btnUsuUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUsuUpdate.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnUsuUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuUpdateActionPerformed(evt);
+            }
+        });
 
         btnUsuDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/delete.png"))); // NOI18N
         btnUsuDelete.setToolTipText("Excluir");
         btnUsuDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUsuDelete.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnUsuDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuDeleteActionPerformed(evt);
+            }
+        });
 
         txtTeste.setText("jTextField1");
 
@@ -306,6 +356,16 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         adicionar();
     }//GEN-LAST:event_btnUsuCreateActionPerformed
+
+    private void btnUsuUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuUpdateActionPerformed
+        // chamando o metodo alterar
+        alterar();
+    }//GEN-LAST:event_btnUsuUpdateActionPerformed
+
+    private void btnUsuDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuDeleteActionPerformed
+        // metodo chama remoção
+        remover();
+    }//GEN-LAST:event_btnUsuDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
