@@ -56,7 +56,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                   txtUsuFone.setText(null);
                   txtUsuLogin.setText(null);
                   txtUsuSenha.setText(null);
-                  cboUsuPerfil.setSelectedItem(null);
+                  
             }
            
         } catch (Exception e) {
@@ -77,8 +77,8 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             pst.setString(6,cboUsuPerfil.getSelectedItem().toString());
             
             // validaçao dos campos obrigatorios
-            if (txtUsuId.getText().isEmpty()|| (txtUsuNome.getText().isEmpty())){
-              JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+            if ((txtUsuId.getText().isEmpty())|| (txtUsuNome.getText().isEmpty()) || (txtUsuLogin.getText().isEmpty())|| (txtUsuSenha.getText().isEmpty())){
+              JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatorios");
             }else{
             
           
@@ -94,7 +94,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                   txtUsuFone.setText(null);
                   txtUsuLogin.setText(null);
                   txtUsuSenha.setText(null);
-                  cboUsuPerfil.setSelectedItem(null);
+                  
                   }
               }
               
