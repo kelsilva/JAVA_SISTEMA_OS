@@ -68,18 +68,18 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
     // metodo para adiconar usuarios
 
     private void adicionar() {
-        String sql = "insert into tbusuarios (iduser,usuario,fone,login,senha,perfil) values (?,?,?,?,?,?)";
+        String sql = "insert into tbusuarios (usuario,fone,login,senha,perfil) values (?,?,?,?,?)";
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, txtUsuId.getText());
-            pst.setString(2, txtUsuNome.getText());
-            pst.setString(3, txtUsuFone.getText());
-            pst.setString(4, txtUsuLogin.getText());
-            pst.setString(5, txtUsuSenha.getText());
-            pst.setString(6, cboUsuPerfil.getSelectedItem().toString());
+          //  pst.setString(1, txtUsuId.getText());
+            pst.setString(1, txtUsuNome.getText());
+            pst.setString(2, txtUsuFone.getText());
+            pst.setString(3, txtUsuLogin.getText());
+            pst.setString(4, txtUsuSenha.getText());
+            pst.setString(5, cboUsuPerfil.getSelectedItem().toString());
 
             // validaçao dos campos obrigatorios
-            if ((txtUsuId.getText().isEmpty()) || (txtUsuNome.getText().isEmpty()) || (txtUsuLogin.getText().isEmpty()) || (txtUsuSenha.getText().isEmpty())) {
+            if ((txtUsuNome.getText().isEmpty()) || (txtUsuLogin.getText().isEmpty()) || (txtUsuSenha.getText().isEmpty())) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatorios");
             } else {
 
@@ -89,7 +89,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                 //System.out.println(adicionado);
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "Usuario Adicionado com Sucesso");
-                    txtUsuId.setText(null);
+                    //txtUsuId.setText(null);
                     txtUsuNome.setText(null);
                     txtUsuFone.setText(null);
                     txtUsuLogin.setText(null);
@@ -151,7 +151,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             String sql = "delete * from tbusuarios where iduser=?";
             try {
                 pst = conexao.prepareStatement(sql);
-                pst.setString(1, txtUsuId.getText());
+                //pst.setString(1, txtUsuId.getText());
                 int apagado = pst.executeUpdate();
                 if (apagado > 0) {
                     JOptionPane.showMessageDialog(null, "Usuario removido com Sucesso");
@@ -291,7 +291,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtUsuId, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtUsuNome, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 3, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(btnUsuRead, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -341,10 +341,10 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                     .addComponent(btnUsuRead, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUsuUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUsuDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
 
-        setBounds(0, 0, 665, 420);
+        setBounds(0, 0, 662, 421);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUsuReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuReadActionPerformed
