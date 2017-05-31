@@ -6,6 +6,7 @@
 package br.com.infox.telas;
 import java.sql.*;
 import br.com.infox.dal.ModuloConexao;
+import net.proteanit.sql.DbUtils;
 import javax.swing.JOptionPane;
 /**
  *
@@ -65,6 +66,23 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         }
 
     }
+    // metodo para pesquisar cliente com nome e filtro
+    
+    private void pesquisar_cliente(){
+    
+    String sql = "select * from tbclientes where nomecli like ?";
+        try {
+          pst= conexao.prepareStatement(sql);
+          // passando o conteudo da caixa de pesquisa para o  ?
+          pst.setString(1, txtCliPesquisar.getText()+ "%");
+          rs = pst.executeQuery();
+          // a linha abaixo usa a biblioteca rs2xml.jar para preencher a tabela
+          tblClientes.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -88,7 +106,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         txtCliPesquisar = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblClientes = new javax.swing.JTable();
         txtCliFone = new javax.swing.JTextField();
         txtCliendereco = new javax.swing.JTextField();
         txtCliEmail = new javax.swing.JTextField();
@@ -132,11 +150,15 @@ public class TelaClientes extends javax.swing.JInternalFrame {
 
         btnRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/delete.png"))); // NOI18N
 
-        txtCliPesquisar.setText("jTextField1");
+        txtCliPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCliPesquisarKeyReleased(evt);
+            }
+        });
 
         jLabel5.setText("* Campos Obrigatorios ");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -147,7 +169,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tblClientes);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -224,6 +246,11 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         // metodo para adicionar clientes
         adicionar();
     }//GEN-LAST:event_btnAdicionarActionPerformed
+    //  o metodo abaixo e do tipo equanto for digitando
+    private void txtCliPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCliPesquisarKeyReleased
+        // chamando o metodo
+        pesquisar_cliente();
+    }//GEN-LAST:event_txtCliPesquisarKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -238,7 +265,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable tblClientes;
     private javax.swing.JTextField txtCliEmail;
     private javax.swing.JTextField txtCliFone;
     private javax.swing.JTextField txtCliNome;
